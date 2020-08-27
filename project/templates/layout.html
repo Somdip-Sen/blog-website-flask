@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit= yes">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  {%if title%}
+  <title>{{title}}</title>
+  {%else%}
+  <title>Somdip Sen</title>
+  {%endif%}
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{url_for('static', filename = 'vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="{{url_for('static', filename = 'vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"/>
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" type = "text/css" href="{{url_for('static', filename = 'css/styles.css')}}"/>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript"> // setting timer for flash message
+    window.setTimeout("document.getElementById('flash').style.display='none';", 7000); 
+  </script>
+</head>
+
+<body>
+  {% if show_navbar %}
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/">Somdip Project</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{url_for('home')}}">Home</a>
+              <a class="nav-item nav-link" href="{{url_for('about')}}">About</a>
+              <a class="nav-item nav-link" href="{{url_for('contact')}}">Contact</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav float-right">
+              {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" href="{{url_for('logout')}}">Log Out</a>
+                <a class="nav-item nav-link" href="{{url_for('account')}}">Account</a>
+                <a class="nav-item nav-link" href="{{url_for('post_entry')}}">New Post</a>
+                <img class= "rounded-circle profile-img" src ="{{ url_for('static', filename = 'img/profile_pics/' + user.image_file)  }}">
+              {% else %}
+                 <div class="dropdown">
+                  <a href="#" id="menu1" data-toggle="dropdown" data-target="#navItem">
+                    <img src="{{ url_for('static', filename = 'img/general_img.png')}}">
+                  </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="navItem">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url_for('login')}}">Login</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href=""{{url_for('registration')}}">Register</a></li>      
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  {% endif %}
+
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+             <div class="alert alert-{{ category }}" role="alert" id = "flash">{{ message }}
+             <button type="button" class="close icon" data-dismiss="alert" aria-label="Close" onclick=delete_flash(this)>
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      {% block content %}{% endblock %}
+      </div>
+
+      <div class="col-md-4">
+        <div class="content-section">
+          <h3>Our Sidebar</h3>
+          <p class='text-muted'>You can put any information here you'd like.
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-light">Latest Posts</li>
+              <li class="list-group-item list-group-item-light">Announcements</li>
+              <li class="list-group-item list-group-item-light">Calendars</li>
+              <li class="list-group-item list-group-item-light">etc</li>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+ <br><br>
+
+  <!-- Footer -->
+  <footer>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="{{parameter['twitter']}}" target="blank"> <!-- get parameter['twitter'] value from config.json -->
+                <span class="fa-stack fa-lg">       
+                  <i class="fas fa-circle fa-stack-2x"></i>   <!-- target = "blank" will open link in new tab -->
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{parameter['fb']}}" target="blank"> 
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{parameter['github']}}" target="blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; by Somdip Sen 2020</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{url_for('static', filename = 'vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{{url_for('static', filename = 'js/clean-blog.min.js')}}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+

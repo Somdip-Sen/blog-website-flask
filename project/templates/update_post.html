@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block content %}
+  <!-- Page Header -->
+ <!--  <header class="masthead" style="background-image: url({{url_for('static', filename = 'img/about-bg.jpg')}})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>About Me</h1>
+            <span class="subheading">This is what I do.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header> -->
+
+  <!-- Main Content -->
+  <div class="row mt-5 mb-5 ml-2"><a href="{{url_for('home')}}" class="btn1 button2 float-left" role="button"><span>Back</span></a></div>
+  <div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{image}}">
+      <div class="media-body">
+        {% if current_user.is_authenticated %}
+        <h2 class="account-heading">{{current_user.name}}</h2>
+        <p class="text-secondary">Posted on {{ post.date.strftime('%Y-%m-%d') }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data" name ='Update'>
+      {{form.hidden_tag()}}
+      <!-- includes a cross site request token(CS token) -->
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Update Your Post</legend>
+        <div class="form-group">
+          {{form.title.label(class = "form-control-label")}}
+
+          {% if form.title.errors %}
+            {{ form.title(class = "form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                  <span> {{ error }} </span>
+                {% endfor %}
+              </div>
+          {% else %}
+            {{form.title(class = "form-control form-control-lg")}}
+          {% endif %}
+        </div>    
+        <div class="form-group">
+          {{form.tagline.label(class = "form-control-label")}}
+          {% if form.tagline.errors %}
+            {{ form.tagline(class = "form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.tagline.errors %}
+                  <span> {{ error }} </span>
+                {% endfor %}
+              </div>
+          {% else %}
+            {{form.tagline(class = "form-control form-control-lg")}}
+          {% endif %}
+        </div>    
+        <div class="form-group">
+          {{form.content.label(class = "form-control-label")}}
+          {% if form.content.errors %}
+            {{ form.content(class = "form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.content.errors %}
+                  <span> {{ error }} </span>
+                {% endfor %}
+              </div>
+          {% else %}
+            {{form.content(class = "form-control form-control-lg")}}
+          {% endif %}
+        </div>    
+        <div class="btn2 button1 float-right">
+        <span aria-hidden="true" data-icon="&#xe000;" onclick="Update.submit()">Update</span>
+        </div>
+      </fieldset>
+     <!--  <div class="form-group">
+        {{form.submit(class = "btn btn-outline-info")}}
+      </div> -->
+      
+    </form>
+  </div>
+{% endblock %}
+

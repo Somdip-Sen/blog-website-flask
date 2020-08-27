@@ -1,0 +1,49 @@
+ {% extends "layout.html" %}
+{% block content %}
+
+<div class="row mt-5 mb-5 ml-2"><a href="{{url_for('home')}}" class="btn2 button2 float-left" role="button"><span>Back</span></a></div>
+    <!-- Account details -->
+    
+	  	<div class="media mt-5">
+		   <img class="rounded-circle casual-img" src="{{url_for('static', filename = 'img/profile_pics/' + user.image_file)  }}">
+		    <div class="media-body">
+		      <h2 class="account-heading">{{user.name}}</h2>
+		      <p class="text-secondary">{{user.email}}</p>
+		    </div>	
+	    </div>
+    <u><h3> All Posts ({{posts.total}})</h3></u>
+    <!-- Main Content -->
+   {% for post in posts.items %}
+       <article class="media content-section">
+          <div class="media-body">
+           <small class="text-muted">{{ post.date.strftime('%d-%m-%Y') }}</small>
+            <a href = "/post/{{post.slug}}" class="btn-link" style="text-decoration:none"> 
+              <b><h2 class="article-title">{{ post.heading }}</h2></b>
+              <i><u><h5 class="post-subtitle">{{post.tag_line}}</h5></u></i>
+            </a>
+            <br>
+            <p class="text-muted">{{ post.content[:140] }}....</p>
+          </div>
+        </article>
+    {% endfor %}
+
+    <!-- Pager -->
+    {% for num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if num %}
+        {% if posts.page == num %}
+          <a class="btn btn-info mb-4" href="{{url_for('all_posts', name=num) }}"> {{ num }} </a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{url_for('all_posts', name=num) }}"> {{ num }} </a>
+        {% endif %}
+      {% else %}
+      ...
+      {% endif %}
+    {% endfor %}
+          
+    
+    <br>
+    <!-- <button class="btn button1 float-right"><span>Next </span></button>
+    <button class="btn button2 float-left " href="{{url_for('home', type_ = prev)}}"><span>Prev </span></button> -->
+
+ 
+{% endblock content%}

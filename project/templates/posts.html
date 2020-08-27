@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+  <!-- Page Header -->
+  
+  <div class="post">
+    <div class="container">
+      <div class="row">
+          <div class="post-heading">
+            <h1>{{post.heading}}</h1>
+            <h4 class="subheading">{{post.tag_line}} </h4>
+            <span class="meta">Posted by
+              <a> {{post.publisher}}</a>
+              on {{post.date}}</span>
+          </div>
+      	</div>
+    </div>
+  </div>
+
+  <!-- Post Content -->
+  <article>
+    <div class="row">
+     <div class="container">
+     <p>{{post.content}}</p>
+     </div>
+   	</div>
+  </article>
+{% endblock %}
+

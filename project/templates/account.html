@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <!-- Main Content -->
+  <div class="row mt-5 mb-5 ml-2"><a href="{{url_for('home')}}" class="btn2 button2 float-left" role="button"><span>Back</span></a></div>
+  <div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{image}}">
+        <div class="media-body">
+          {% if current_user.is_authenticated %}
+          <h2 class="account-heading">{{current_user.name}}</h2>
+          <p class="text-secondary">{{current_user.email}}</p>
+          {% endif %}
+        </div>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data", name = 'accountupdate'>
+      {{form.hidden_tag()}}
+      <!-- includes a cross site request token(CS token) -->
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Edit your details</legend>
+        <div class="form-group">
+          {{form.username.label(class = "form-control-label")}}
+
+          {% if form.username.errors %}
+            {{ form.username(class = "form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.username.errors %}
+                  <span> {{ error }} </span>
+                {% endfor %}
+              </div>
+          {% else %}
+            {{form.username(class = "form-control form-control-lg")}}
+          {% endif %}
+        </div>    
+        <div class="form-group">
+          {{form.email.label(class = "form-control-label")}}
+          {% if form.email.errors %}
+            {{ form.email(class = "form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                  <span> {{ error }} </span>
+                {% endfor %}
+              </div>
+          {% else %}
+            {{form.email(class = "form-control form-control-lg")}}
+          {% endif %}
+        </div>    
+        <div class="form-group">
+          {{form.picture.label()}}
+          {{form.picture(class = "form-control-file")}}
+          {% if form.picture.errors %}
+            {% for error in form.picture.errors %}
+                  <span class="text-danger"> {{ error }} </span><br>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="btn1 button1 float-right">
+        <span aria-hidden="true" data-icon="&#xe000;" onclick="accountupdate.submit()">Update</span>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+{% endblock %}
+

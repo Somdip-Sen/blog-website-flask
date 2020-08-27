@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<div class="content-section">
+	<form method="POST" action="">
+		{{form.hidden_tag()}}
+		<!-- includes a cross site request token(CS token) -->
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4">Log in to your exiting account</legend>			
+			<div class="form-group">
+				{{form.email.label(class = "form-control-label")}}
+				{{form.email(class = "form-control form-control-lg")}}
+			</div>		
+			<div class="form-group">
+				{{form.password.label(class = "form-control-label")}}
+				{{form.password(class = "form-control form-control-lg")}}
+			</div>		
+			<div class="form-check">
+				{{form.remember(class = "form-check-input mt-2")}}
+				{{form.remember.label(class = "form-check-label ml-4")}}
+			</div>		
+		</fieldset>
+		<small class="text-muted ml-2"><a href="{{url_for('reset_request')}}">Forgot Password?</a></small>
+		<div class="form-group mt-3" >
+			{{form.submit(class = "btn2 btn-outline-info")}}
+		</div>
+	</form>
+</div>
+<div class="border-top pt-3">
+	<small class="text-muted ">
+		Want to be our new member? <a class="ml-2" href="{{url_for('registration')}}"> Create account </a> 
+	</small>
+</div>
+
+
+{%endblock content%}
