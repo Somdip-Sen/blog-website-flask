@@ -33,6 +33,10 @@
       position: relative;
       transition: 0.5s;
       }
+.btn1:focus,.btn1:active,.btn2:focus,.btn2:active {
+   outline: none !important;
+   box-shadow: none;
+}
 
 .button1 span:after {
   content: '\00bb';
@@ -111,7 +115,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #5f986a;
 }
 
 .site-header .navbar-nav .nav-link {
