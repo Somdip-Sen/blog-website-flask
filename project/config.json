@@ -5,12 +5,12 @@
     "local_URI": "mysql://root:@localhost/flask_project",
     "host_URI": "mysql://root:@localhost/flask_project",
     "secret_key": "c2d5832dfdec84488d063243b1d948f79c8022dd",
-    "fb": "https://www.facebook.com/somdip.sen.73",
+    "fb": "https://www.facebook.com/xyz",
     "github": "https://github.com/Somdip-Sen",
-    "twitter": "https://twitter.com/ConspFact",
+    "twitter": "twitter.com",
     "no_of_post_in_Homepage": 3,
-    "Mail_User_Name": "mailtestrony@gmail.com",
-    "Mail_User_Password": "testerjonno@007",
+    "Mail_User_Name": "Your Mail User Name",
+    "Mail_User_Password": "Your Mail User password",
     "default_profile_picture_size" : "(125,125)",
     "User_validation_expire_time_period": 300
     }
