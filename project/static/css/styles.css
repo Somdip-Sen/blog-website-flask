@@ -33,7 +33,7 @@
       position: relative;
       transition: 0.5s;
       }
-.btn1:focus,.btn1:active,.btn2:focus,.btn2:active {
+.btn1:focus,.btn1:active,.btn2:focus,.btn2:active, .btn:focus,.btn:active{
    outline: none !important;
    box-shadow: none;
 }

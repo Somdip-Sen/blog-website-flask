@@ -10,8 +10,7 @@ app = Flask(__name__)
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 json_url = os.path.join(SITE_ROOT, 'config.json')
 parameters = json.load(open(json_url, 'r'))["param"]  # loading configurable parameters' values from config.json file
-# with open('config.json', 'r') as file:
-#     parameters = json.load(file)["param"]
+
 
 if parameters['server_local'] == "True":
     app.config['SQLALCHEMY_DATABASE_URI'] = parameters['local_URI']  # local host
